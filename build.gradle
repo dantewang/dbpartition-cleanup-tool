@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'com.liferay'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtimeOnly('mysql:mysql-connector-java:8.0.26') {
+        exclude group: 'com.google.protobuf', module: 'protobuf-java'
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class" : "com.liferay.dbpartition.cleanup.tool.DBPartitionCleanUpTool"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
