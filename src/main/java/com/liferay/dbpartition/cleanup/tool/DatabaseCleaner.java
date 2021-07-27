@@ -79,8 +79,8 @@ public class DatabaseCleaner {
 						try (Connection connection = _getConnection()) {
 							try (PreparedStatement preparedStatement =
 									connection.prepareStatement(
-										"delete schema " + "lpartition_" +
-											companyId)) {
+										"drop schema IF EXISTS " +
+											"lpartition_" + companyId)) {
 
 								preparedStatement.executeUpdate();
 							}
